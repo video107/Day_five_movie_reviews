@@ -4,6 +4,14 @@ class MoviesController < ApplicationController
 
   # GET /movies
   # GET /movies.json
+  def search
+    if params[:search].present?
+      @movies = Movie.search(params[:search])
+    else
+      @movies = Movie.all
+    end
+  end
+
   def index
     @movies = Movie.all
   end
@@ -20,6 +28,8 @@ class MoviesController < ApplicationController
       @avg_rating = @reviews.average(:rating).round(2)
     end
   end
+
+
 
   # GET /movies/new
   def new
